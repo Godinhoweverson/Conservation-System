@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=psychiatry" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    </head>
+  <body class="d-flex justify-content-center flex-column align-items-center">
+    <div class="d-flex justify-content-center align-items-start flex-column p-3 shadow-sm header w-100">
+        <h1 class="fs-1 fs-md-2 fs-lg-1">Distributed Jaguar Conservation System</h1>
+        <p class="fs-6 fs-md-5 fs-lg-4"><span class="material-symbols-outlined pe-3" >
+        psychiatry
+        </span>SDG 15 - Life on Land</p>
+    </div>
+    <div id="nav" class="p-2 mt-5 container-fluid">
+        <div class="row">
+            <div class="col-12 col-md-4">
+                <div class="d-flex justify-content-center align-items-center h-100 text-center text-md-start">
+                    <img src="assets/paw.png" alt="jaguar" class="pe-3" style="width:40px;">
+                    <h3 class="fs-5 fs-md-4 fs-lg-3 m-0 fw-bold">Jaguar Tracking</h3>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-4">
+                <div class="d-flex justify-content-center align-items-center h-100 text-center text-md-start">
+                    <img src="assets/weather.png" alt="weather" class="pe-3" style="width:40px;">
+                    <h3 class="fs-5 fs-md-4 fs-lg-3 m-0 fw-bold">Pantanal Conditions</h3>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-4">
+                <div class="d-flex justify-content-center align-items-center h-100 text-center text-md-start">
+                    <img src="assets/alert.png" alt="alert" class="pe-3" style="width:40px;">
+                    <h3 class="fs-5 fs-md-4 fs-lg-3 m-0 fw-bold">Alert & Response</h3>
+                </div>
+            </div>
+
+        </div>
+    </div>
+   <div id="menu" class="container-fluid my-5">
+    <div class="row g-4">
+
+       <div class="col-12 col-md-4">
+            <div class="h-100 p-3 border rounded bg-white shadow-sm">
+
+                <!-- Top section -->
+                <div class="d-flex align-items-center mb-3 border-bottom pb-3">
+                    <div class="img-container me-3">
+                        <img src="assets/paw.png" alt="jaguar" style="width: 60px;">
+                    </div>
+                    <div>
+                        <h4 class="fs-5 m-0 fw-bold">Jaguar Tracking Service</h4>
+                        <p class="fs-6 mb-0">Monitor and track jaguar locations using GPS.</p>
+                    </div>
+                </div>
+
+                <div class="d-flex flex-column gap-2">
+
+                    <h5 class="mt-2 fw-bold">All Jaguars</h5>
+                    <button class="btn">Show All Jaguars</button>
+
+                    <h5 class="mt-3 fw-bold">Get Jaguar Location</h5>
+                    <label class="form-label">Jaguar ID</label>
+                    <input class="form-control" />
+                    <button class="btn">Get Location</button>
+
+                    <h5 class="mt-3 fw-bold">Stream Jaguar Movement</h5>
+                    <button class="btn">Start Movement Stream</button>
+
+                    <h5 class="mt-3">Output</h5>
+                    <div class="border p-2" style="min-height: 80px;"></div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-12 col-md-4">
+            <div class="h-100 p-3 border-bottom border rounded bg-white shadow-sm">
+                <div class="d-flex align-items-center mb-3 border-bottom pb-3">
+                    <div class="img-container me-3">
+                        <img src="assets/weather.png" alt="weather" style="width: 60px;">
+                    </div>
+                    <div>
+                        <h4 class="fs-5 m-0 fw-bold">Pantanal Condition Monitoring</h4>
+                        <p class="fs-6 mb-0">Check environmental conditions in the Pantanal region.</p>
+                    </div>
+                </div>
+                <div class="d-flex flex-column gap-2">
+                    <h5 class="mt-2">Temperature Input</h5>
+                    <label class="form-label">Temperature (C)</label>
+                    <input class="form-control" />
+                    <button class="btn">Check Conditions</button>
+                    <h5 class="mt-3">Environmental Summary</h5>
+
+                    <div class="output-conditions">
+                        <div class="row g-3">
+
+                            <!-- Temperature -->
+                            <div class="col-6">
+                                <div class="d-flex align-items-center border p-2 rounded">
+                                    <i class="bi bi-thermometer-half fs-4 text-danger me-2"></i>
+                                    <div>
+                                        <p class="mb-0 fw-bold">Temperature</p>
+                                        <p class="mb-0">35.2°C</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Humidity -->
+                            <div class="col-6">
+                                <div class="d-flex align-items-center border p-2 rounded">
+                                    <i class="bi bi-droplet fs-4 text-primary me-2"></i>
+                                    <div>
+                                        <p class="mb-0 fw-bold">Humidity</p>
+                                        <p class="mb-0">60%</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Rainfall -->
+                            <div class="col-6">
+                                <div class="d-flex align-items-center border p-2 rounded">
+                                    <i class="bi bi-cloud-rain fs-4 text-info me-2"></i>
+                                    <div>
+                                        <p class="mb-0 fw-bold">Rainfall</p>
+                                        <p class="mb-0">12mm</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Fire Risk -->
+                            <div class="col-6">
+                                <div class="d-flex align-items-center border p-2 rounded">
+                                    <i class="bi bi-fire fs-4 text-danger me-2"></i>
+                                    <div>
+                                        <p class="mb-0 fw-bold">Fire Risk</p>
+                                        <p class="mb-0 text-danger">High</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+              
+            </div>
+        </div>
+
+
+        <div class="col-12 col-md-4">
+            <div class="h-100 p-3 border rounded bg-white shadow-sm">
+                <div class="d-flex align-items-center mb-3 border-bottom pb-3">
+                    <div class="img-container me-3">
+                        <img src="assets/alert.png" alt="alert" style="width: 60px;">
+                    </div>
+                    <div>
+                        <h4 class="fs-5 m-0 fw-bold">Alert &amp; Response</h4>
+                        <p class="fs-6 mb-0">Send alerts and communicate during emergency situations.</p>
+                    </div>
+                </div>
+                <!-- Form -->
+                <div class="mb-3">
+                    <label for="alertType" class="form-label fw-semibold">Alert Type</label>
+                    <select id="alertType" class="form-select">
+                        <option selected>🔥 Fire</option>
+                        <option>🌊 Flood</option>
+                        <option>🚨 Poaching</option>
+                        <option>🌪️ Storm</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="severity" class="form-label fw-semibold">Severity</label>
+                    <select id="severity" class="form-select">
+                        <option>Low</option>
+                        <option selected>High</option>
+                        <option>Critical</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="region" class="form-label fw-semibold">Region</label>
+                    <input
+                        type="text"
+                        id="region"
+                        class="form-control"
+                        value="Pantanal North"
+                        placeholder="Enter region"
+                    >
+                </div>
+
+                <div class="mb-3">
+                    <label for="message" class="form-label fw-semibold">Message</label>
+                    <textarea
+                        id="message"
+                        class="form-control"
+                        rows="3"
+                        placeholder="Write alert message"
+                    >Fire detected near the reserve area.</textarea>
+                </div>
+
+                <!-- Buttons -->
+                <div class="d-flex flex-column flex-md-row gap-3 mb-4">
+                    <button class="btn btn-danger flex-fill fw-semibold">
+                        <i class="bi bi-megaphone-fill me-2"></i>Send Alert
+                    </button>
+                    <button class="btn btn-outline-danger flex-fill fw-semibold">
+                        <i class="bi bi-chat-dots-fill me-2"></i>Start Live Alert Chat
+                    </button>
+                </div>
+
+                <!-- Response -->
+                <h5 class="fw-bold mb-3">Response</h5>
+                <div class="response-box rounded p-3">
+                    <p class="mb-2">Alert registered successfully!</p>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+    </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+  </body>
+</html>
