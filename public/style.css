@@ -10,7 +10,7 @@ body{
 }   
 
 .header{
-    background-image: url('jaguar.png');
+    background-image: url('assets/jaguar.png');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -63,4 +63,8 @@ body{
     background-color: #1f4d2b;
     color:#fff;
     
+}
+
+#output{
+    border-radius: 5px;
 }
