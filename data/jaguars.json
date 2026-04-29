@@ -1,0 +1,22 @@
+[
+  { "jaguarId": "J001", "name": "Arara", "latitude": -16.4521, "longitude": -56.1253 },
+  { "jaguarId": "J002", "name": "Tigre", "latitude": -16.4872, "longitude": -56.2104 },
+  { "jaguarId": "J003", "name": "Onca", "latitude": -16.5328, "longitude": -56.3056 },
+  { "jaguarId": "J004", "name": "Lua", "latitude": -16.4983, "longitude": -56.1789 },
+  { "jaguarId": "J005", "name": "Sol", "latitude": -16.4219, "longitude": -56.0897 },
+  { "jaguarId": "J006", "name": "Rio", "latitude": -16.5632, "longitude": -56.3561 },
+  { "jaguarId": "J007", "name": "Puma", "latitude": -16.5124, "longitude": -56.2782 },
+  { "jaguarId": "J008", "name": "Sombra", "latitude": -16.4750, "longitude": -56.1956 },
+  { "jaguarId": "J009", "name": "Estrela", "latitude": -16.4386, "longitude": -56.1420 },
+  { "jaguarId": "J010", "name": "Terra", "latitude": -16.5217, "longitude": -56.2998 },
+  { "jaguarId": "J011", "name": "Fogo", "latitude": -16.5551, "longitude": -56.3302 },
+  { "jaguarId": "J012", "name": "Brisa", "latitude": -16.4694, "longitude": -56.1673 },
+  { "jaguarId": "J013", "name": "Chuva", "latitude": -16.4908, "longitude": -56.2159 },
+  { "jaguarId": "J014", "name": "Raio", "latitude": -16.5402, "longitude": -56.3105 },
+  { "jaguarId": "J015", "name": "Noite", "latitude": -16.5076, "longitude": -56.2601 },
+  { "jaguarId": "J016", "name": "Dia", "latitude": -16.4357, "longitude": -56.1204 },
+  { "jaguarId": "J017", "name": "Selva", "latitude": -16.5603, "longitude": -56.3457 },
+  { "jaguarId": "J018", "name": "Verde", "latitude": -16.4825, "longitude": -56.1908 },
+  { "jaguarId": "J019", "name": "Mar", "latitude": -16.5259, "longitude": -56.2756 },
+  { "jaguarId": "J020", "name": "Céu", "latitude": -16.4473, "longitude": -56.1509 }
+]
