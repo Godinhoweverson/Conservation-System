@@ -1,0 +1,31 @@
+{
+  "name": "conservation-system",
+  "version": "1.0.0",
+  "description": "Distributed Jaguar Conservation System",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "backend": "node server.js",
+    "jaguar": "node services/jaguarService.js",
+    "weather": "node services/weatherService.js",
+    "alert": "node services/alertService.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Godinhoweverson/Conservation-System.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Godinhoweverson/Conservation-System/issues"
+  },
+  "homepage": "https://github.com/Godinhoweverson/Conservation-System#readme",
+  "dependencies": {
+    "@grpc/grpc-js": "^1.14.3",
+    "@grpc/proto-loader": "^0.8.0",
+    "cors": "^2.8.6",
+    "express": "^5.2.1"
+  }
+}
