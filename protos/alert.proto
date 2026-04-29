@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package alert;
+
+message Empty{}
+
+message alertRequest{
+    string alertType = 1;
+    string severity = 2;
+    string region = 3;
+    string message = 4;
+}
+
+message alertResponse{
+    string status = 1;
+    string responseMessage = 2;
+    string recommendationAction = 3;
+}
+
+message alertChat{
+    string message = 1;
+}
+
+message AlertMessage {
+    string message = 1;
+}
+
+service AlertService{
+    rpc SendAlert(alertRequest) returns (alertResponse);
+    rpc LiveAlertChat(stream alertChat) returns (stream AlertMessage);
+}

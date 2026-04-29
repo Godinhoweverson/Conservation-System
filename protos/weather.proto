@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package weather;
+
+message Empty{}
+
+message temperatureResquest{
+   double temperature = 1; 
+}
+
+message weatherResponse{
+    double temperature = 1;
+    int32 humidity = 2;
+    int32 rainfall = 3;
+    string fireRisk = 4;
+}
+
+
+service weatherService {
+    rpc GetCurrentConditions (temperatureResquest) returns (weatherResponse);
+}
