@@ -68,17 +68,17 @@
                 <div class="d-flex flex-column gap-2">
 
                     <h5 class="mt-2 fw-bold">All Jaguars</h5>
-                    <button onclick="showAllJaguars()" class="btn">Show All Jaguars</button>
+                    <button onclick="showAllJaguars()" class="btn btn-success">Show All Jaguars</button>
 
                     <h5 class="mt-3 fw-bold">Get Jaguar Location</h5>
                     <label class="form-label">Jaguar ID</label>
                     <input class="form-control" id="jaguarId" placeholder="Enter Jaguar ID"/>
-                    <button class="btn" onclick="getJaguarLocation()">Get Location</button>
+                    <button class="btn btn-success" onclick="getJaguarLocation()">Get Location</button>
 
                     <h5 class="mt-3 fw-bold">Stream Jaguar Movement</h5>
                     <input class="form-control" id="jaguarIdMov" placeholder="Enter Jaguar ID"/>
-                    <button class="btn" onclick="startJaguarStream()">Start Movement Stream</button>
-                    <button class="btn" onclick="stopJaguarStream()">Stop Movement Stream</button>
+                    <button class="btn btn-success" onclick="startJaguarStream()">Start Movement Stream</button>
+                    <button class="btn btn-success" onclick="stopJaguarStream()">Stop Movement Stream</button>
 
                     <h5 class="mt-3">Output</h5>
                     <div id="output" class="border p-2 overflow-auto" style="max-height: 220px; min-height: 80px;">
@@ -105,7 +105,7 @@
                     <h5 class="mt-2">Temperature Input</h5>
                     <label class="form-label">Temperature (C)</label>
                      <input class="form-control" id="temperature" placeholder="Enter Temperature"/>
-                    <button class="btn" onclick="getCurrentConditions()">Check Conditions</button>
+                    <button class="btn btn-success" onclick="getCurrentConditions()">Check Conditions</button>
                     <h5 class="mt-3">Environmental Summary</h5>
 
                     <div class="output-conditions">
@@ -213,18 +213,21 @@
                 </div>
 
                 <!-- Buttons -->
-                <div class="d-flex flex-column flex-md-row gap-3 mb-4">
-                    <button class="btn btn-danger flex-fill fw-semibold" onclick="sendAlert()">
+               <div class="d-flex flex-column gap-3 mb-4">
+                    <button class="btn btn-success w-100" onclick="sendAlert()">
                         <i class="bi bi-megaphone-fill me-2"></i>Send Alert
                     </button>
-                    <button class="btn btn-outline-danger flex-fill fw-semibold" onclick="startLiveAlertChat()">
+                    <button class="btn btn-success w-100" onclick="startLiveAlertChat()">
                         <i class="bi bi-chat-dots-fill me-2"></i>Start Live Alert Chat
+                    </button>
+                    <button class="btn btn-success w-100" onclick="stopLiveAlertChat()">
+                        <i class="bi bi-chat-dots-fill me-2"></i>Stop Chat
                     </button>
                 </div>
 
                 <!-- Response -->
                 <h5 class="fw-bold mb-3">Response</h5>
-                <div class="response-box rounded p-3">
+                <div class="response-box rounded border p-2 overflow-auto" style="max-height: 180px; min-height: 80px;">
                     <p class="mb-2" id="outputAlert"></p>
                 </div>
 

@@ -62,27 +62,19 @@ function SendAlert(call, callback){
     });
 
 }
-
 function LiveAlertChat(call) {
+    const alerts = [
+        "Fire detected in Pantanal North",
+        "Heavy rain expected in Pantanal South",
+        "Flood warning issued in central region",
+    ];
+
+    let index = 0;
+
     const interval = setInterval(() => {
-        call.write({ message: "Monitoring alert conditions..." });
-    }, 5000);
-
-    call.on('data', (request) => {
-        const msg = request.message.toLowerCase();
-
-        let response = "Monitoring the situation...";
-
-        if (msg.includes("fire")){
-            response = "Fire detected!";
-        } else if (msg.includes("rain")) {
-            response = "Heavy rain expected!";
-        } else if (msg.includes("flood")) {
-            response = "Flood warning issued!";
-        }
-
-        call.write({ message: response });
-    });
+        call.write({ message: alerts[index % alerts.length] });
+        index++;
+    }, 3000);
 
     call.on('end', () => {
         clearInterval(interval);

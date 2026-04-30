@@ -176,23 +176,38 @@ async function sendAlert(){
     }
 }
 
+
+let alertStream = null;
 async function startLiveAlertChat() {
     const output = document.getElementById("outputAlert");
-    output.textContent = "Starting live alert chat...\n";                         
+    output.textContent = "Starting live alert chat...\n";   
     try {
-        const eventSource = new EventSource('/api/alerts/live');   
-        eventSource.onmessage = (event) => {
+        alertStream = new EventSource('/api/alerts/live');   
+        alertStream.onmessage = (event) => {
             const data = JSON.parse(event.data);
-            output.textContent += `Live Alert Update: ${data.message}\n`;
+            output.innerHTML = `<p>Live Alert Update: ${data.message}</p>`;
         };
 
-        eventSource.onerror = (error) => {
+        alertStream.onerror = (error) => {
             console.error('Error in live alert chat:', error);
-            output.textContent += 'Error in live alert chat.\n';
-            eventSource.close();
+            output.innerHTML += "<p>Error in live alert chat.</p>";
+            alertStream.close();
         };
     } catch (error) {
         console.error('Error starting live alert chat:', error);
         output.textContent = 'Error starting live alert chat.';
     }   
+}
+
+function stopLiveAlertChat() {
+    if (alertStream) {
+        alertStream.close();
+        alertStream = null;
+
+        const output = document.getElementById("outputAlert");
+        output.innerHTML += "<p>Live alert chat stopped.</p>";
+        setTimeout(() => {
+            output.textContent = "";
+        }, 5000);
+    } 
 }

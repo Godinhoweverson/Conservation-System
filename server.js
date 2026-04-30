@@ -93,7 +93,7 @@ app.post('/api/alerts', (req, res) => {
     );
 });
 
-app.post('/api/alerts/live', (req, res) => {
+app.get('/api/alerts/live', (req, res) => {
     res.setHeader('Content-Type', 'text/event-stream');
     res.setHeader('Cache-Control', 'no-cache');
     res.setHeader('Connection', 'keep-alive');
