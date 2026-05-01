@@ -1,0 +1,20 @@
+[
+  {
+    "serviceName": "JaguarTrackingService",
+    "host": "127.0.0.1",
+    "port": 50051,
+    "description": "Tracks jaguar GPS locations"
+  },
+  {
+    "serviceName": "WeatherService",
+    "host": "127.0.0.1",
+    "port": 50052,
+    "description": "Provides Pantanal condition monitoring"
+  },
+  {
+    "serviceName": "AlertService",
+    "host": "127.0.0.1",
+    "port": 50053,
+    "description": "Handles emergency alerts"
+  }
+]

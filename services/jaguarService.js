@@ -3,6 +3,8 @@ const protoLoader = require('@grpc/proto-loader');
 const path = require('path');
 const jaguarList = require('../data/jaguars.json');
 
+const { registerService } = require('./namingService');
+
 const PROTO_PATH = path.join(__dirname, '../protos/jaguar.proto');
 
 const packageDefinition = protoLoader.loadSync(PROTO_PATH, {
@@ -91,13 +93,21 @@ server.addService(jaguarProto.JaguarTrackingService.service, {
 });
 
 server.bindAsync(
-  '127.0.0.1:50051',
+  "127.0.0.1:50051",
   grpc.ServerCredentials.createInsecure(),
-  (err,port) => {
+  (err, port) => {
     if (err) {
-      console.error('Failed to bind gRPC server:', err.message);
+      console.error("Failed to bind gRPC server:", err.message);
       return;
     }
+
+    registerService({
+        serviceName: "JaguarTrackingService",
+        host: "127.0.0.1",
+        port: port,
+        description: "Tracks jaguar GPS locations"
+    });
+
     console.log(`Jaguar gRPC service running on port ${port}`);
     server.start();
   }

@@ -2,6 +2,8 @@ const grpc = require('@grpc/grpc-js');
 const protoLoader = require('@grpc/proto-loader');
 const path = require('path');
 
+const { registerService } = require('./namingService');
+
 const PROTO_PATH = path.join(__dirname, '../protos/alert.proto');
 
 const packageDefinition = protoLoader.loadSync(PROTO_PATH, {
@@ -96,6 +98,13 @@ server.bindAsync(
       console.error('Failed to bind gRPC server:', err.message);
       return;
     }
+
+    registerService({
+        serviceName: "AlertService",
+        host: "127.0.0.1",
+        port: port,
+        description: "Handles emergency alerts"
+    });
     console.log(`Alert service running on port ${port}`);
     server.start();
   }

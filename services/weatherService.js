@@ -2,6 +2,8 @@ const grpc = require('@grpc/grpc-js');
 const protoLoader = require('@grpc/proto-loader');
 const path = require('path');
 
+const { registerService } = require('./namingService');
+
 const PROTO_PATH = path.join(__dirname, '../protos/weather.proto');    
 
 const packageDefinition = protoLoader.loadSync(PROTO_PATH, {
@@ -116,6 +118,13 @@ server.bindAsync(
       console.error('Failed to bind gRPC server:', err.message);
       return;
     }
+
+    registerService({
+        serviceName: "WeatherService",
+        host: "127.0.0.1",
+        port: port,
+        description: "Provides Pantanal condition monitoring"
+    });
     console.log(`Weather conditions gRPC service running on port ${port}`);
     server.start();
   }

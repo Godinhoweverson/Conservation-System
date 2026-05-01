@@ -1,3 +1,14 @@
+async function discoverServices() {
+    try {
+        const response = await fetch('/api/services');
+        const services = await response.json();
+        return services;
+    } catch (error) {
+        console.error('Error discovering services:', error);
+        throw new Error('Failed to discover services');
+    }
+}
+
 //Show all jaguars
 async function showAllJaguars() {
     const output = document.getElementById('output');
@@ -192,7 +203,7 @@ async function sendAlert(){
     const region = document.getElementById("region").value.trim();
     const textArea = document.getElementById("messageInput");
     const output = document.getElementById("outputAlert");  
-    console.log(`Sending alert: Type=${alertType}, Severity=${severity}, Region=${region}, Message=${textArea.value}`);
+   
     try{
         const response = await fetch('/api/alerts', {  
             method: 'POST',

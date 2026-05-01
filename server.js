@@ -6,8 +6,16 @@ const alertClient = require('./grpcClients/alertClient');
 
 const app = express();
 
+const fs = require('fs');
+
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.get("/api/services", (req, res) => {
+    const registryPath = path.join(__dirname, "data/serviceRegistry.json");
+    const services = JSON.parse(fs.readFileSync(registryPath, "utf8"));
+    res.json(services);
+});
 
 //Show all Jaguars
 app.get('/api/jaguars', (req, res) => {
