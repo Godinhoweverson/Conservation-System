@@ -69,9 +69,43 @@ function GetCurrentConditions(call, callback) {
     });
 }
 
+function SendSensorBatch(call, callback) {
+    const temperatures = [];
+    call.on('data', (data) => {
+        const temp = Number(data.temperature);
+
+        if(!isNaN(temp)) {
+            temperatures.push(temp);
+        }
+        
+    });
+    
+    call.on('end', () => {
+        if(temperatures.length === 0) {
+            return callback({
+                code: grpc.status.INVALID_ARGUMENT,
+                message: 'No sensor readings received'
+            });
+        }
+
+        const averageTemperature = temperatures.reduce((sum, temp) => sum + temp, 0) / temperatures.length;
+        const averageHumidity = simulateHumidity(averageTemperature);
+        const averageRainfall = simulateRainfall();
+        const risk = fireRisk(averageTemperature, averageHumidity, averageRainfall);
+     
+        callback(null, {
+            averageTemperature: averageTemperature,
+            averageHumidity: averageHumidity,
+            averageRainfall: averageRainfall,
+            fireRisk: risk
+        });
+    });
+}
+
 const server = new grpc.Server();
 server.addService(weatherProto.weatherService.service, {
-    GetCurrentConditions
+    GetCurrentConditions,
+    SendSensorBatch
 });
 
 server.bindAsync(

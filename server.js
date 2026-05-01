@@ -74,6 +74,34 @@ app.get('/api/weather', (req, res) =>{
     })
 });
 
+app.post('/api/weather/batch', (req, res) => {
+    const readings = req.body.readings;
+
+    if (!Array.isArray(readings) || readings.length === 0 ){
+        return res.status(400).json({ error: 'Readings must be a non-empty array' });
+    }
+
+    const numbers = readings.map(reading => Number(reading.temperature ?? reading))
+    .filter(value => !isNaN(value));
+
+    if(numbers.length === 0) {
+        return res.status(400).json({ error: 'All readings must be valid numbers' });
+    }
+
+    const call = weatherClient.SendSensorBatch((err, response) => {
+        if (err) {
+            return res.status(500).json({ error: err.message });
+        }
+        res.json(response);
+    }); 
+
+    numbers.forEach(temp => {
+        call.write({ temperature: temp });
+    });
+
+    call.end();
+});
+
 app.post('/api/alerts', (req, res) => {
     const { alertType, severity, region, message } = req.body;
 

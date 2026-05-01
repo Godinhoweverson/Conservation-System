@@ -146,6 +146,45 @@ async function getCurrentConditions(){
     }
 }
 
+async function sendSensorDataBatch() {
+    const input = document.getElementById("tempInput").value;
+    const output = document.getElementById("outputBatch");
+   
+    const readings = input.split(',').map(s => s.trim()).filter(s => s !== '').map(Number);
+
+    if (readings.length === 0 || readings.some(r => isNaN(r))) {
+        window.alert("Please enter valid numbers separated by commas");
+        return;
+    }
+
+    try {
+        const response = await fetch('/api/weather/batch', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ readings })
+        });
+        const data = await response.json();
+        
+        if (!response.ok) {
+            throw new Error(data.error || "Error analyzing batch data");
+        }
+        
+        output.innerHTML = `
+            <p>Average Temperature: ${data.averageTemperature.toFixed(2)}°C</p>
+            <p>Average Humidity: ${data.averageHumidity}%</p>
+            <p>Average Rainfall: ${data.averageRainfall}mm</p>
+            <p>Fire Risk: ${data.fireRisk}</p>
+        `;
+    } catch (error) {
+        console.error('Error analyzing batch data:', error);
+        window.alert('Error analyzing batch data.');
+    }
+
+
+}
+
 
 async function sendAlert(){
     const alertType = document.getElementById("alertType").value;

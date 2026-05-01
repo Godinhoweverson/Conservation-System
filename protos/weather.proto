@@ -8,6 +8,10 @@ message temperatureResquest{
    double temperature = 1; 
 }
 
+message SensorReading{
+    double temperature = 1;
+}
+
 message weatherResponse{
     double temperature = 1;
     int32 humidity = 2;
@@ -15,7 +19,15 @@ message weatherResponse{
     string fireRisk = 4;
 }
 
+message SensorSummary{
+    double averageTemperature = 1;
+    int32 averageHumidity = 2;
+    int32 averageRainfall = 3;
+    string fireRisk = 4;
+}
+
 
 service weatherService {
     rpc GetCurrentConditions (temperatureResquest) returns (weatherResponse);
+    rpc SendSensorBatch (stream SensorReading) returns(SensorSummary);
 }
