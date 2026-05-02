@@ -1,11 +1,15 @@
+// Import required libraries for gRPC and file paths
 const grpc = require('@grpc/grpc-js');
 const protoLoader = require('@grpc/proto-loader');
 const path = require('path');
 
+// Import naming service to register this service
 const { registerService } = require('./namingService');
 
+// Path to the alert proto file
 const PROTO_PATH = path.join(__dirname, '../protos/alert.proto');
 
+// Load proto configuration
 const packageDefinition = protoLoader.loadSync(PROTO_PATH, {
     keepCase: true,
     longs: String,
@@ -16,7 +20,11 @@ const packageDefinition = protoLoader.loadSync(PROTO_PATH, {
 
 const alertProto = grpc.loadPackageDefinition(packageDefinition).alert;
 
+// This function handles alert requests from the client
+// It checks the alert type and severity and returns a response
+
 function SendAlert(call, callback){
+    // Get data sent by the client
     const alertType = call.request.alertType;
     const severity = call.request.severity;
     const region = call.request.region;
@@ -25,7 +33,7 @@ function SendAlert(call, callback){
     let responseMessage;
     let recommendationAction;
 
-
+    // Decide the response based on alert type and severity
     if(alertType.toUpperCase() === "FIRE"){
         responseMessage = `Fire deteted in ${region}`;
         if(severity.toUpperCase() === "HIGH"){
@@ -56,7 +64,7 @@ function SendAlert(call, callback){
             recommendationAction = `Be aware of the potential for flooding.`;
         }
     }
-
+    // Send the response back to the client
     callback(null, { 
         status: "Alert received",
         responseMessage: responseMessage, 
@@ -64,7 +72,12 @@ function SendAlert(call, callback){
     });
 
 }
+
+// This function simulates a live alert chat using streaming
+// It sends alert messages every few seconds
 function LiveAlertChat(call) {
+
+    // Example alert messages
     const alerts = [
         "Fire detected in Pantanal North",
         "Heavy rain expected in Pantanal South",
@@ -72,7 +85,7 @@ function LiveAlertChat(call) {
     ];
 
     let index = 0;
-
+    // Stop sending messages when client disconnects
     const interval = setInterval(() => {
         call.write({ message: alerts[index % alerts.length] });
         index++;
@@ -84,6 +97,7 @@ function LiveAlertChat(call) {
     });
 }
 
+// Create gRPC server
 const server = new grpc.Server();
 server.addService(alertProto.AlertService.service, {
     SendAlert,

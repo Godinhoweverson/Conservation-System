@@ -4,20 +4,20 @@ package alert;
 
 message Empty{}
 
-message alertRequest{
+message AlertRequest{
     string alertType = 1;
     string severity = 2;
     string region = 3;
     string message = 4;
 }
 
-message alertResponse{
+message AlertResponse{
     string status = 1;
     string responseMessage = 2;
     string recommendationAction = 3;
 }
 
-message alertChat{
+message AlertChat{
     string message = 1;
 }
 
@@ -26,6 +26,6 @@ message AlertMessage {
 }
 
 service AlertService{
-    rpc SendAlert(alertRequest) returns (alertResponse);
-    rpc LiveAlertChat(stream alertChat) returns (stream AlertMessage);
+    rpc SendAlert(AlertRequest) returns (AlertResponse);
+    rpc LiveAlertChat(stream AlertChat) returns (stream AlertMessage);
 }

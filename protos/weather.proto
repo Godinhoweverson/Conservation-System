@@ -4,7 +4,7 @@ package weather;
 
 message Empty{}
 
-message temperatureResquest{
+message TemperatureResquest{
    double temperature = 1; 
 }
 
@@ -12,7 +12,7 @@ message SensorReading{
     double temperature = 1;
 }
 
-message weatherResponse{
+message WeatherResponse{
     double temperature = 1;
     int32 humidity = 2;
     int32 rainfall = 3;
@@ -27,7 +27,7 @@ message SensorSummary{
 }
 
 
-service weatherService {
-    rpc GetCurrentConditions (temperatureResquest) returns (weatherResponse);
+service WeatherService {
+    rpc GetCurrentConditions (TemperatureResquest) returns (WeatherResponse);
     rpc SendSensorBatch (stream SensorReading) returns(SensorSummary);
 }

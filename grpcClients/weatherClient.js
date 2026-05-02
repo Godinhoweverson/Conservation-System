@@ -19,6 +19,6 @@ if (!serviceInfo) {
     throw new Error('WeatherService not found in service registry');
 }
 
-const weatherClient = new weatherProto.weatherService(`${serviceInfo.host}:${serviceInfo.port}`, grpc.credentials.createInsecure());
+const weatherClient = new weatherProto.WeatherService(`${serviceInfo.host}:${serviceInfo.port}`, grpc.credentials.createInsecure());
 
 module.exports = weatherClient;

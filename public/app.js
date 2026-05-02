@@ -1,3 +1,4 @@
+// Discover all services registered in the naming service
 async function discoverServices() {
     try {
         const response = await fetch('/api/services');
@@ -9,7 +10,7 @@ async function discoverServices() {
     }
 }
 
-//Show all jaguars
+// Get and display all jaguars from the backend
 async function showAllJaguars() {
     const output = document.getElementById('output');
     try {       
@@ -30,8 +31,9 @@ async function showAllJaguars() {
         console.error('Error fetching jaguars:', error);
         output.textContent = 'Error loading jaguars.';
     }
-}   
-  
+}
+
+//Get location of jaguar by ID
 async function getJaguarLocation() {
     const output = document.getElementById('output');
     output.textContent = 'Loading jaguar location...';
@@ -65,8 +67,10 @@ async function getJaguarLocation() {
     }   
 }
 
+// Store the jaguar movement stream connection
 let jaguarStream = null;
 
+// Start server streaming for jaguar movement
 function startJaguarStream() {
     const jaguarId = document.getElementById('jaguarIdMov').value.trim().toUpperCase(); 
     const output = document.getElementById('output');
@@ -75,9 +79,10 @@ function startJaguarStream() {
         output.textContent = 'Please enter a Jaguar ID';
         return;
     }
-
+    // Open stream connection to backend
     jaguarStream = new EventSource(`/api/jaguars/${jaguarId}/stream`);
 
+    // Display every location update received from the stream
     jaguarStream.onmessage = (event) => {
         const data = JSON.parse(event.data);
         output.innerHTML =`
@@ -89,13 +94,14 @@ function startJaguarStream() {
         `;
     };
 
+    // Close stream if an error happens
     jaguarStream.onerror = (error) => {
         console.error('Error in jaguar stream:', error);
         output.textContent = 'Error in jaguar stream.';
         jaguarStream.close();
     };  
 }
-
+//Stop streaming jaguar location updates
 function stopJaguarStream() {
     if (jaguarStream) {
         jaguarStream.close();
@@ -103,7 +109,7 @@ function stopJaguarStream() {
     }
 }
 
-//Get current conditions
+// Get current Pantanal conditions using one temperature input
 async function getCurrentConditions(){
     const temperature = Number(document.getElementById("temperature").value);
 
@@ -127,6 +133,7 @@ async function getCurrentConditions(){
 
         const data = await response.json();
         
+         // Select colour based on fire risk
         let textColor;
 
         if (data.fireRisk === 'HIGH') {
@@ -142,7 +149,7 @@ async function getCurrentConditions(){
         outputHumidity.textContent = "";
         outputRainfall.textContent = "";
 
-        // set new values
+        // Display weather results
         outputTemperature.textContent = `${data.temperature}°C`;
         outputHumidity.textContent = `${data.humidity}%`;
         outputRainfall.textContent = `${data.rainfall}mm`;
@@ -157,10 +164,12 @@ async function getCurrentConditions(){
     }
 }
 
+// Send multiple temperature readings to the backend for client streaming analysis
 async function sendSensorDataBatch() {
     const input = document.getElementById("tempInput").value;
     const output = document.getElementById("outputBatch");
    
+    // Convert comma-separated input into numbers
     const readings = input.split(',').map(s => s.trim()).filter(s => s !== '').map(Number);
 
     if (readings.length === 0 || readings.some(r => isNaN(r))) {
@@ -182,6 +191,7 @@ async function sendSensorDataBatch() {
             throw new Error(data.error || "Error analyzing batch data");
         }
         
+        // Display summary calculated by the service
         output.innerHTML = `
             <p>Average Temperature: ${data.averageTemperature.toFixed(2)}°C</p>
             <p>Average Humidity: ${data.averageHumidity}%</p>
@@ -196,7 +206,7 @@ async function sendSensorDataBatch() {
 
 }
 
-
+// Send an alert and display the recommended action
 async function sendAlert(){
     const alertType = document.getElementById("alertType").value;
     const severity = document.getElementById("severity").value;
@@ -226,18 +236,24 @@ async function sendAlert(){
     }
 }
 
-
+// Store the live alert stream connection
 let alertStream = null;
+
+// Start live alert stream for real-time alert messages
 async function startLiveAlertChat() {
     const output = document.getElementById("outputAlert");
     output.textContent = "Starting live alert chat...\n";   
     try {
-        alertStream = new EventSource('/api/alerts/live');   
+        // Open stream connection to backend
+        alertStream = new EventSource('/api/alerts/live');
+
+        // Display each live alert message  
         alertStream.onmessage = (event) => {
             const data = JSON.parse(event.data);
             output.innerHTML = `<p>Live Alert Update: ${data.message}</p>`;
         };
-
+        
+        // Close stream if an error happens
         alertStream.onerror = (error) => {
             console.error('Error in live alert chat:', error);
             output.innerHTML += "<p>Error in live alert chat.</p>";
@@ -248,7 +264,7 @@ async function startLiveAlertChat() {
         output.textContent = 'Error starting live alert chat.';
     }   
 }
-
+//Stop live alert chat
 function stopLiveAlertChat() {
     if (alertStream) {
         alertStream.close();
