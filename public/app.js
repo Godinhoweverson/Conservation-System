@@ -117,9 +117,14 @@ async function getCurrentConditions(){
     const outputHumidity = document.getElementById("outputHumidity");
     const outputRainfall = document.getElementById("outputRainfall");
     const outputFireRisk = document.getElementById("outputFireRisk");
+    
+    if(temperature === undefined || temperature === null || temperature === '' || temperature === 0){
+        window.alert("Please enter temperature to get the current conditions.");
+        return;
+    }
 
     if(isNaN(temperature)){
-        window.alert("Please insert a number");
+        window.alert("Please enter a valid number for temperature.");
         return;
     }
 
@@ -172,8 +177,13 @@ async function sendSensorDataBatch() {
     // Convert comma-separated input into numbers
     const readings = input.split(',').map(s => s.trim()).filter(s => s !== '').map(Number);
 
-    if (readings.length === 0 || readings.some(r => isNaN(r))) {
-        window.alert("Please enter valid numbers separated by commas");
+    if (readings.length === 0) {
+        window.alert("Please enter at least one temperature reading.");
+        return;
+    }
+
+    if(readings.some(r => isNaN(r))){
+         window.alert("Please enter valid numbers separated by commas");
         return;
     }
 

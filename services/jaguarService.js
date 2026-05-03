@@ -69,13 +69,13 @@ function StreamJaguarMovement(call) {
     
     // Find jaguar
     const jaguar = jaguarList.find(j => j.jaguarId === jaguarId);
-    
+ 
     // If not found, return error
     if (!jaguar) {
         call.emit('error', {
             code: grpc.status.NOT_FOUND,
             message: 'Jaguar not found' 
-    });
+        });
         return;
     }
 

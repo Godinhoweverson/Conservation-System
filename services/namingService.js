@@ -1,17 +1,17 @@
 const fs = require('fs');
 const path = require('path');
 
-const RESGISTRY_FILE = path.join(__dirname, '../data/serviceRegistry.json');
+const REGISTRY_FILE = path.join(__dirname, '../data/serviceRegistry.json');
 
 function loadRegistry() {
-    if (!fs.existsSync(RESGISTRY_FILE)) {
-        fs.writeFileSync(RESGISTRY_FILE, JSON.stringify({}));
+    if (!fs.existsSync(REGISTRY_FILE)) {
+        fs.writeFileSync(REGISTRY_FILE, JSON.stringify([]));
     }
-    return JSON.parse(fs.readFileSync(RESGISTRY_FILE, 'utf8'));
+    return JSON.parse(fs.readFileSync(REGISTRY_FILE, 'utf8'));
 }
 
 function saveRegistry(registry) {
-    fs.writeFileSync(RESGISTRY_FILE, JSON.stringify(registry, null, 2));
+    fs.writeFileSync(REGISTRY_FILE, JSON.stringify(registry, null, 2));
 }
 
 

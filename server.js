@@ -23,6 +23,7 @@ app.get("/api/services", (req, res) => {
 
 //Get all Jaguars
 app.get('/api/jaguars', (req, res) => {
+
     jaguarClient.GetAllJaguars({}, (err, response) => {
         if (err) {
             console.error("gRPC error:", err);
@@ -34,12 +35,26 @@ app.get('/api/jaguars', (req, res) => {
 
 // Get jaguar by ID
 app.get('/api/jaguars/:id', (req, res) => {
-    jaguarClient.GetJaguarLocation({ jaguarId: req.params.id }, (err, response) => {
-        if (err) {
-            return res.status(404).json({ error: err.message });
+
+    //Add a deadline to prevent long-running gRPC calls
+    const deadline = new Date();
+    deadline.setSeconds(deadline.getSeconds() + 2);
+
+    jaguarClient.GetJaguarLocation(
+        { jaguarId: req.params.id },
+        { deadline: deadline },
+        (err, response) => {
+            if (err) {
+                
+                //Check for deadline exceeded error
+                if (err.code === grpc.status.DEADLINE_EXCEEDED) {
+                    return res.status(504).json({ error: 'Request timed out' });
+                }
+                return res.status(404).json({ error: err.message });
+            }
+            res.json(response);
         }
-        res.json(response);
-    });
+    );
 });
 
 // Stream jaguar movement using Server-Sent Events

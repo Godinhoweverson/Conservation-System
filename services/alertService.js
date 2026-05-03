@@ -35,9 +35,9 @@ function SendAlert(call, callback){
 
     // Decide the response based on alert type and severity
     if(alertType.toUpperCase() === "FIRE"){
-        responseMessage = `Fire deteted in ${region}`;
+        responseMessage = `Fire detected in ${region}`;
         if(severity.toUpperCase() === "HIGH"){
-           recommendationAction = `Evacaute the ${region} and send the rescue team`;
+           recommendationAction = `Evacute the ${region} and send the rescue team`;
         }else if(severity.toUpperCase() === "MEDIUM"){
             recommendationAction = `Monitor the situation in ${region} and prepare for possible evacuation`;
         }else{
