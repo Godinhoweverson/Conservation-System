@@ -52,6 +52,7 @@ async function getJaguarLocation() {
             const errorData = await response.json();
             throw new Error(errorData.error || 'Jaguar not found');
         }
+
         const data = await response.json();
 
         output.innerHTML =`
@@ -63,7 +64,7 @@ async function getJaguarLocation() {
         `;
     } catch (error) {
         console.error('Error fetching jaguar location:', error);
-        output.textContent = 'Jaguar not found, try a different ID.';
+        output.textContent = error.message;
     }   
 }
 
@@ -85,6 +86,13 @@ function startJaguarStream() {
     // Display every location update received from the stream
     jaguarStream.onmessage = (event) => {
         const data = JSON.parse(event.data);
+        
+        if(data.error){
+            output.textContent = 'Jaguar not found!'; 
+            jaguarStream.close();
+            return;
+        }
+
         output.innerHTML =`
             <p>ID: ${data.jaguarId}</p>
             <p>Name: ${data.name}</p>
@@ -111,13 +119,21 @@ function stopJaguarStream() {
 
 // Get current Pantanal conditions using one temperature input
 async function getCurrentConditions(){
+
+
     const temperature = Number(document.getElementById("temperature").value);
 
     const outputTemperature = document.getElementById("outputTemperature");
     const outputHumidity = document.getElementById("outputHumidity");
     const outputRainfall = document.getElementById("outputRainfall");
     const outputFireRisk = document.getElementById("outputFireRisk");
-    
+
+    // clear old values
+    outputTemperature.textContent = "";
+    outputHumidity.textContent = "";
+    outputRainfall.textContent = "";
+    outputFireRisk.textContent = "";
+
     if(temperature === undefined || temperature === null || temperature === '' || temperature === 0){
         window.alert("Please enter temperature to get the current conditions.");
         return;
@@ -148,11 +164,6 @@ async function getCurrentConditions(){
         } else {
             textColor = 'text-success';
         }
-
-        // clear old values
-        outputTemperature.textContent = "";
-        outputHumidity.textContent = "";
-        outputRainfall.textContent = "";
 
         // Display weather results
         outputTemperature.textContent = `${data.temperature}°C`;

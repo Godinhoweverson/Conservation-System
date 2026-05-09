@@ -50,7 +50,15 @@ app.get('/api/jaguars/:id', (req, res) => {
                 if (err.code === grpc.status.DEADLINE_EXCEEDED) {
                     return res.status(504).json({ error: 'Request timed out' });
                 }
-                return res.status(404).json({ error: err.message });
+
+                if (err.code === grpc.status.NOT_FOUND) {
+                    return res.status(404).json({
+                        error: 'Jaguar not found'
+                    });
+                }
+                return res.status(500).json({
+                    error: err.message
+                });
             }
             res.json(response);
         }
@@ -75,7 +83,8 @@ app.get('/api/jaguars/:id/stream', (req, res) => {
     //send error message if stream fails
     stream.on('error', (err) => {
         console.error("gRPC stream error:", err);
-        res.write(`data: ${JSON.stringify({ error: err.message })}\n\n`);
+        res.write(`data: ${JSON.stringify({ error: err.message || 'Jaguar not found' })}\n\n`);
+        res.end();
     });
 
     //end stream when gRPC stream ends

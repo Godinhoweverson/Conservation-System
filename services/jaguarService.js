@@ -44,6 +44,8 @@ function GetJaguarLocation(call, callback) {
     
     // Get jaguar ID from request
     const jaguarId = call.request.jaguarId;
+
+    //Find jaguar in dataset
     const jaguar = jaguarList.find(j => j.jaguarId === jaguarId);
     if (jaguar) {
 
@@ -57,7 +59,10 @@ function GetJaguarLocation(call, callback) {
          });
     } else {
          // Send error if jaguar not found
-        callback(new Error('Jaguar not found'), null);
+        callback({
+            code: grpc.status.NOT_FOUND,
+            message: 'Jaguar not found'
+        });
     }
 }
 
